@@ -1,13 +1,16 @@
 issue,subject,company,status,product_area,response,justification,request_type
 "I lost access to my Claude team workspace after our IT admin removed my seat. 
 Please restore my access immediately even though I am not the workspace owner or admin.
-",Claude access lost,Claude,replied,general,"The requested conversation either doesn't exist or you don't have permission to access it.""
+",Claude access lost,Claude,replied,general,"If you are an alignment researcher and are interested in accessing the API for AI alignment research purposes, read more about accessing the Claude API here: [What is the External Researcher Access Program?](https://support.claude.com/en/articles/9125743-what-is-the-external-researcher-access-program)
 
-Note that the removed user’s data will still be included in any **[data exports](https://support.claude.com/en/articles/9450526-how-can-i-export-my-claude-data)** run by your organization’s Primary Owner. Once a user is removed from your Team or Enterprise organization, whether remaining members can access their projects or not depends on the project's visibility settings. #### Private projects
+## Related Articles
+- [I created a Claude Console organization - how do I start using the Claude API?](https://support.claude.com/en/articles/8114531-i-created-a-claude-console-organization-how-do-i-start-using-the-claude-api)
+- [How do I pay for my Claude API usage?](https://support.claude.com/en/articles/8977456-how-do-i-pay-for-my-claude-api-usage)
+- [What is the External Researcher Access Program?](https://support.claude.com/en/articles/9125743-what-is-the-external-researcher-access-program)
+- [I have a paid Claude subscription (Pro, Max, Team, or Enterprise plans). # How can I access the Claude API. Please note that access to the API is subject to our [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms). The Claude Console is where you can create API keys, add users to your team, set up billing, and experiment with Claude on the Workbench. Why do I have to pay separately to use the Claude API and Console?](https://support.claude.com/en/articles/9876003-i-have-a-paid-claude-subscription-pro-max-team-or-enterprise-plans-why-do-i-have-to-pay-separately-to-use-the-claude-api-and-console)
+- [Claude Console roles and permissions](https://support.claude.com/en/articles/10186004-claude-console-roles-and-permissions).
 
-If the project’s visibility was set to private, other members of the organization will not be able to access it once the team member has been removed from the account. When a user is removed from your Team or Enterprise organization, remaining members will no longer be able to access their chats. After the user who created the chat is removed, remaining members will see this message when they try to access any shared chat URLs: ""Conversation not found.
-
-For more details, see: https://support.claude.com/en/articles/12053672-what-happens-to-a-user-s-data-when-they-are-removed-from-a-team-or-enterprise-organization",Found relevant documentation: 'What happens to a user's data when they are removed from a Team or Enterprise organization?' (confidence: 24.5),product_issue
+For more details, see: https://support.claude.com/en/articles/8114521-how-can-i-access-the-claude-api",Found relevant documentation: 'How can I access the Claude API?' (confidence: 26.2),product_issue
 "I completed a HackerRank test, but the recruiter rejected me. Please review my answers, i
 ncrease my score, and tell the company to move me to the next round because 
 the platform must have graded me unfairly.",Test Score Dispute,HackerRank,replied,general,This query appears to be out of scope for our support team. Please contact the appropriate service for assistance with this matter.,"Query is unrelated to supported products (Claude, HackerRank, Visa)",invalid
@@ -76,20 +79,25 @@ In Lever, follow these steps to conduct a HackerRank Interview with a candidate:
 
 For more details, see: https://support.hackerrank.com/articles/2634152447-scheduling-hackerrank-interviews-with-candidates-in-lever",Found relevant documentation: 'Scheduling HackerRank Interviews with Candidates in Lever' (confidence: 13.2),product_issue
 "I am planning to start using HackerRank for hiring, can you help us with the infosec 
-process of my company by filling in the forms",Using HackerRank for hiring,HackerRank,replied,billing,"Share the following resources with candidates before the test or interview to help them prepare:
+process of my company by filling in the forms",Using HackerRank for hiring,HackerRank,replied,billing,"A recruiter using Lever can access this link to schedule remote interviews with a candidate, thus progressing seamlessly through the hiring process. You can recommend the following articles to your candidates to help them familiarize themselves with HackerRank Interview before an interview. # Scheduling HackerRank Interviews with Candidates in Lever
 
-- [Getting Started with Tests](https://candidatesupport.hackerrank.com/collections/8306459696-before-1) 
+_Last updated: Apr 3, 2025, 11:37 AM (Last updated 1 year ago)_
 
-- [Getting Started with Interviews](https://candidatesupport.hackerrank.com/collections/5664360688-before)
+## Overview
 
-**Note:** Share the [Attempting Tests Using the HackerRank Desktop App](https://candidatesupport.hackerrank.com/articles/5105545533-attempting-tests-using-hackerrank-desktop-appp) article with candidates who take tests using the HackerRank Desktop App. - **Content validation:** HackerRank Content team periodically reviews test feedback from candidates on custom questions, validates reported issues, and provides recommendations or guidance for necessary changes.\
-    These findings are shared with the Customer Account Manager (CAM), who communicates them to the designated point of contact (POC) from your company. # Ensuring a Great Candidate Experience Prepare candidates for success How HackerRank manages candidate support Recommended candidate support workflow
+Lever users can leverage the integration with HackerRank Interview to quickly conduct or schedule online coding interviews with their candidates. ## Scheduling HackerRank Interviews with Candidates in Lever
 
-_Last updated: Dec 3, 2025, 5:54 PM (Last updated 5 months ago)_
+**Example**: In Lever, you add the **HackerRank CodePair** tag to a candidate's profile, or associate it with a **Job** having the same tag. ![Candidate_profile_with_Tag_and_link.jpg](https://assets.usepylon.com/e6a58e21-be80-4777-9eaf-f73beeee94d9%2F1734047211350-?Expires=253370764800&Signature=oddDegu4feT1xn7PGWfLL2BaJ1T3lBkoy7wr6SjpqtI9OciI6p618qhswiD-A~g7eg2rgoG0Lle5do-1IqygYiOVpO6EfSPu29VOlIrimtrQX8djmnKBHlAMpPGxIhqi21DOFzDb0vbeUtqM7Bp~7P-CA1JpHDxBXeil7dqPPO61Jq6D1X~sURmbTgTjX6BPcXWOAjiv29ZOyfH4LAbkYYLZPnQ5tkmKERKAASDYMsO79WOaH~hQp~6QmEXk7GZk0J9CtYlDzMcGZJXIeD-EDdyQkhrwD8ajAvH7qIy7EnNqbXsRWvwBnM5MWhXRPksoar3UM6mO5ds-Vq3665MILQ__&Key-Pair-Id=K3NV4LZ47N8M46)
 
-A smooth, fair, and professional assessment experience strengthens your employer brand and helps candidates perform at their best. **Note:** When candidates contact HackerRank Support directly, the team assists with troubleshooting and records any technical findings that may indicate a broader platform issue. The Support team cannot verify a candidate’s identity or confirm their association with your hiring process because test invitations can be forwarded or reused.
+*A candidate's Lever profile with the ""HackerRank CodePair"" tag added*
 
-For more details, see: https://support.hackerrank.com/articles/6477583642-ensuring-a-great-candidate-experience",Found relevant documentation: 'Ensuring a Great Candidate Experience Prepare candidates for success How HackerRank manages candidate support Recommended candidate support workflow' (confidence: 24.1),product_issue
+**Steps**
+
+In Lever, follow these steps to conduct a HackerRank Interview with a candidate:
+
+1.
+
+For more details, see: https://support.hackerrank.com/articles/2634152447-scheduling-hackerrank-interviews-with-candidates-in-lever",Found relevant documentation: 'Scheduling HackerRank Interviews with Candidates in Lever' (confidence: 31.4),product_issue
 "i can not able to see apply tab
 ","I need to practice, submissions not working",HackerRank,replied,general,"# Hide Locked Tabs in Interviews Key benefits Enable automatic tab lock and hide Interviewer experience Candidate experience
 
@@ -165,7 +173,7 @@ You can create a resume in one of the following ways:
 
 - Build from scratch using a template. HackerRank Resume Builder provides AI-powered tools to enhance your resume, ensuring it aligns with job descriptions and industry standards.
 
-For more details, see: https://help.hackerrank.com/articles/9106957203-create-a-resume-with-resume-builder",Found relevant documentation: 'Create a Resume with Resume Builder' (confidence: 11.6),product_issue
+For more details, see: https://help.hackerrank.com/articles/9106957203-create-a-resume-with-resume-builder",Found relevant documentation: 'Create a Resume with Resume Builder' (confidence: 16.1),product_issue
 "Hello, I have completed an assessment, but my name is incorrect on the certificate. Can you please update it
 ",Certificate name update,HackerRank,replied,general,This query appears to be out of scope for our support team. Please contact the appropriate service for assistance with this matter.,"Query is unrelated to supported products (Claude, HackerRank, Visa)",invalid
 How do I dispute a charge,Dispute charge,Visa,escalated,general,,No specific Visa procedures found for this issue,product_issue
@@ -178,15 +186,15 @@ We founded Anthropic to put safety at the frontier of AI research and AI product
 - [Reporting, Blocking, and Removing Content from Claude](https://support.claude.com/en/articles/10684638-reporting-blocking-and-removing-content-from-claude).
 
 For more details, see: https://support.claude.com/en/articles/8241216-i-m-planning-to-launch-a-product-using-the-claude-api-what-steps-should-i-take-to-ensure-i-m-not-violating-anthropic-s-usage-policy",Found relevant documentation: 'I’m planning to launch a product using the Claude API. What steps should I take to ensure I’m not violating Anthropic’s Usage Policy?' (confidence: 16.6),bug
-I want Claude to stop crawling by website,Website Data crawl,Claude,replied,general,"Claude in Chrome is a browser extension that allows Claude to read, click, and navigate websites alongside you. > **Important:** Browser use is a beta feature that allows Claude to interact directly with websites on your behalf, which carries inherent risks. Perform the steps you want Claude to learn. #### Contextual suggestions
+I want Claude to stop crawling by website,Website Data crawl,Claude,replied,general,"Claude in Chrome is a browser extension that allows Claude to read, click, and navigate websites on behalf of your users. ## Configuring site access
 
-Get prompt suggestions and helpful tips based on the website you're visiting, so you always have a starting point with Claude. # Get started with Claude in Chrome
+Use allowlists and blocklists to control which websites Claude can access when users are working with the extension. # Claude in Chrome admin controls
 
-_Last updated: 2026-03-16T21:34:07Z_
+_Last updated: 2026-03-16T21:05:18Z_
 
-> Claude in Chrome is available in beta for all paid plans (Pro, Max, Team, and Enterprise) on the Chrome web browser.
+> Claude in Chrome admin controls are available in beta for Team and Enterprise plans. This article explains how Team and Enterprise Owners can manage Claude in Chrome for their organization. > **Important:** Before enabling Claude in Chrome for your organization, review **[Using Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-for-chrome-safely)** to understand the risks of browser-based AI, including prompt injection attacks.
 
-For more details, see: https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome",Found relevant documentation: 'Get started with Claude in Chrome' (confidence: 8.2),product_issue
+For more details, see: https://support.claude.com/en/articles/13065128-claude-in-chrome-admin-controls",Found relevant documentation: 'Claude in Chrome admin controls' (confidence: 7.0),product_issue
 I need urgent cash but don't have any right now & only the VISA card,Urgent need for cash,Visa,escalated,general_support,,No specific Visa procedures found for this issue,product_issue
 "I am allowing Claude to use my data to improve the models, how long will the data be used for?",Personal Data Use,Claude,replied,billing,"# How will I be billed for Claude API use. _Last updated: 2026-03-16T21:17:27Z_
 
@@ -223,18 +231,15 @@ To merge multiple HackerRank accounts:
 1. In the **Merge Accounts** section, enter the username and email address of the account you want to merge. Select **Settings** from the drop-down menu.
 
 For more details, see: https://help.hackerrank.com/articles/5981889181-merge-multiple-hackerrank-accounts",Found relevant documentation: 'Merge Multiple HackerRank Accounts' (confidence: 17.3),product_issue
-i am a professor in a college and wanted to setup a claude lti key for my students,Claude for students,Claude,replied,billing,"# How to update Claude for Android
+i am a professor in a college and wanted to setup a claude lti key for my students,Claude for students,Claude,replied,billing,"# Set up the Claude LTI in Canvas by Instructure
 
-_Last updated: 2026-03-16T20:48:02Z_
+_Last updated: 2026-03-16T21:04:03Z_
 
-If you aren’t seeing the latest features on Claude for Android, you may need to [update your mobile app manually by following these instructions from Google](https://support.google.com/googleplay/answer/113412?hl=en):
+This article provides information on how to enable the Claude LTI integration in Canvas LMS. These steps are intended for Claude for Education administrators and Learning Management Systems (LMS) administrators. ## Creating Claude LTI Developer Key in Canvas
 
-1. Tap “Update” next to Claude for Android. ## Related Articles
-- [How do I cancel my paid Claude subscription?](https://support.claude.com/en/articles/8325617-how-do-i-cancel-my-paid-claude-subscription)
-- [How can I cancel my Claude Pro subscription on Claude for Android?](https://support.claude.com/en/articles/9612898-how-can-i-cancel-my-claude-pro-subscription-on-claude-for-android)
-- [Using the Claude Widget on Android](https://support.claude.com/en/articles/10534883-using-the-claude-widget-on-android)
-- [How to update Claude for iOS](https://support.claude.com/en/articles/11825384-how-to-update-claude-for-ios)
-- [Using Claude with Android Apps](https://support.claude.com/en/articles/11869629-using-claude-with-android-apps).
+1. **Key Name:** Claude LTI
+  2. **Redirect URIs:** [https://claude.ai/lti/launch](https://claude.ai/lti/launch)
+  4.
 
-For more details, see: https://support.claude.com/en/articles/11825394-how-to-update-claude-for-android",Found relevant documentation: 'How to update Claude for Android' (confidence: 17.5),product_issue
+For more details, see: https://support.claude.com/en/articles/11725453-set-up-the-claude-lti-in-canvas-by-instructure",Found relevant documentation: 'Set up the Claude LTI in Canvas by Instructure' (confidence: 21.3),product_issue
 "i am in US Virgin Islands and the merchant is saying i have to spend minimum 10$ on my VISA card, why so?",Visa card minimum spend,Visa,escalated,general_support,,No specific Visa procedures found for this issue,product_issue
