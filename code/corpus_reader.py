@@ -68,36 +68,76 @@ class CorpusReader:
             if in_table and '---' in line and '|' not in line:
                 in_table = False
     
-    def search_claude(self, query: str) -> List[Tuple[str, str]]:
-        """Search Claude documentation for relevant content."""
+    def search_claude(self, query: str) -> List[Tuple[str, str, float]]:
+        """Search Claude documentation for relevant content with scoring."""
         results = []
         query_lower = query.lower()
+        query_words = [w for w in query_lower.split() if len(w) > 2]
         
         for filepath, content in self.claude_files.items():
+            # Skip index files
+            if filepath == "index.md":
+                continue
+                
             content_lower = content.lower()
-            # Check if query keywords appear in content
-            keywords = query_lower.split()
-            matches = sum(1 for kw in keywords if len(kw) > 3 and kw in content_lower)
             
-            if matches >= 2:  # At least 2 keyword matches
-                results.append((filepath, content))
+            # Calculate relevance score
+            score = 0
+            for kw in query_words:
+                # Count occurrences, not just presence
+                count = content_lower.count(kw)
+                if count > 0:
+                    score += count * (1 if len(kw) > 4 else 0.5)
+            
+            # Also check title for strong match
+            title_match = False
+            lines = content.split('\n')
+            for line in lines[:10]:
+                if line.startswith('#') and any(kw in line.lower() for kw in query_words):
+                    score *= 2  # Boost title matches
+                    title_match = True
+                    break
+            
+            if score >= 2:  # Lower threshold
+                results.append((filepath, content, score))
         
-        return results[:5]  # Return top 5 results
+        # Sort by score descending
+        results.sort(key=lambda x: x[2], reverse=True)
+        return [(r[0], r[1]) for r in results[:5]]
     
-    def search_hackerrank(self, query: str) -> List[Tuple[str, str]]:
-        """Search HackerRank documentation for relevant content."""
+    def search_hackerrank(self, query: str) -> List[Tuple[str, str, float]]:
+        """Search HackerRank documentation for relevant content with scoring."""
         results = []
         query_lower = query.lower()
+        query_words = [w for w in query_lower.split() if len(w) > 2]
         
         for filepath, content in self.hackerrank_files.items():
+            # Skip index files
+            if filepath == "index.md":
+                continue
+                
             content_lower = content.lower()
-            keywords = query_lower.split()
-            matches = sum(1 for kw in keywords if len(kw) > 3 and kw in content_lower)
             
-            if matches >= 2:
-                results.append((filepath, content))
+            # Calculate relevance score
+            score = 0
+            for kw in query_words:
+                count = content_lower.count(kw)
+                if count > 0:
+                    score += count * (1 if len(kw) > 4 else 0.5)
+            
+            # Boost title matches
+            lines = content.split('\n')
+            for line in lines[:10]:
+                if line.startswith('#') and any(kw in line.lower() for kw in query_words):
+                    score *= 2
+                    break
+            
+            if score >= 2:
+                results.append((filepath, content, score))
         
-        return results[:5]
+        # Sort by score descending
+        results.sort(key=lambda x: x[2], reverse=True)
+        return [(r[0], r[1]) for r in results[:5]]
     
     def search_visa(self, query: str) -> List[Tuple[str, str]]:
         """Search Visa documentation for relevant content."""
@@ -136,26 +176,48 @@ class CorpusReader:
             return None
         
         query_lower = query.lower()
+        query_words = [w for w in query_lower.split() if len(w) > 3]
+        
+        best_match = None
+        best_score = 0
         
         for filepath, content in search_results:
+            # Skip index/summary files - look for actual content
             lines = content.split('\n')
+            
+            # Skip if this looks like an index file (has many links, minimal content)
+            link_count = sum(1 for line in lines if '](' in line and line.strip().startswith('-'))
+            if link_count > 10:
+                continue
+            
             relevant_lines = []
-            capture = False
+            score = 0
             
-            for line in lines:
+            for i, line in enumerate(lines):
                 line_lower = line.lower()
-                # Check if this line or nearby lines contain answer
-                if any(kw in line_lower for kw in query_lower.split() if len(kw) > 3):
-                    capture = True
-                
-                if capture:
-                    relevant_lines.append(line)
-                    if line.strip().endswith('.') or line.strip().endswith('!'):
-                        # End of paragraph
-                        if len(relevant_lines) > 5:
-                            break
+                # Skip frontmatter and headers
+                if line.startswith('---') or line.startswith('title:') or line.startswith('['):
+                    continue
+                    
+                # Count keyword matches
+                matches = sum(1 for kw in query_words if kw in line_lower)
+                if matches > 0:
+                    score += matches
+                    # Capture this line and surrounding context
+                    start = max(0, i - 2)
+                    end = min(len(lines), i + 5)
+                    relevant_lines.extend(lines[start:end])
             
-            if relevant_lines:
-                return '\n'.join(relevant_lines[:10])
+            if score > best_score and relevant_lines:
+                best_score = score
+                # Remove duplicates while preserving order
+                seen = set()
+                unique_lines = []
+                for line in relevant_lines:
+                    line_stripped = line.strip()
+                    if line_stripped and line_stripped not in seen and not line_stripped.startswith('---'):
+                        seen.add(line_stripped)
+                        unique_lines.append(line_stripped)
+                best_match = '\n'.join(unique_lines[:15])
         
-        return None
+        return best_match
