@@ -179,6 +179,69 @@ def can_reply_from_corpus(issue: str, subject: str, company: str) -> Tuple[bool,
     return False, None, None
 
 
+def can_reply_hackerrank(issue: str, subject: str) -> Tuple[bool, Optional[str]]:
+    """
+    Determine if we can safely reply to a HackerRank query.
+    
+    With metadata-only corpus, we can ONLY reply if query EXACTLY matches
+    a documented link title. Any variation means we lack corpus evidence.
+    
+    Returns: (can_reply, matched_title)
+    """
+    text = (issue + " " + subject).strip().lower()
+    
+    # Safe titles from corpus - only these exact matches allow replies
+    SAFE_TITLES = [
+        "hacker rank maintenance window notification",
+        "safelist/allowlist urls and ip addresses for hackerrank"
+    ]
+    
+    for title in SAFE_TITLES:
+        if title == text:
+            return True, title
+    
+    return False, None
+
+
+def can_reply_claude(issue: str, subject: str) -> Tuple[bool, Optional[str]]:
+    """
+    Determine if we can safely reply to a Claude query.
+    
+    With metadata-only corpus, we can ONLY reply if query EXACTLY matches
+    a category name. We have category names but NO policy details.
+    
+    Returns: (can_reply, matched_category)
+    """
+    text = (issue + " " + subject).strip().lower()
+    
+    # Safe categories from corpus - only these exact matches allow replies
+    # These are the 16 category names (lowercase for matching)
+    SAFE_CATEGORIES = [
+        "amazon bedrock",
+        "claude (core)",
+        "claude api and console",
+        "claude code",
+        "claude desktop",
+        "claude for education",
+        "claude for government",
+        "claude for nonprofits",
+        "claude in chrome",
+        "claude mobile apps",
+        "connectors",
+        "identity management (sso, jit, scim)",
+        "privacy and legal",
+        "pro and max plans",
+        "safeguards",
+        "team and enterprise plans"
+    ]
+    
+    for category in SAFE_CATEGORIES:
+        if category == text:
+            return True, category
+    
+    return False, None
+
+
 def classify_product_area(issue: str, subject: str, company: str) -> str:
     """Classify the issue into a product area based on keywords."""
     text = (issue + " " + subject).lower()
@@ -316,7 +379,7 @@ def process_ticket(issue: str, subject: str, company_hint: str) -> Dict:
     
     # Step 2: Check if we can reply based on corpus
     if company == "Visa":
-        can_reply, match_info = can_reply_visa(issue)
+        can_reply, match_info, _ = can_reply_visa(issue)
     elif company == "HackerRank":
         can_reply, match_info = can_reply_hackerrank(issue, subject)
     elif company == "Claude":
