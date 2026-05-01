@@ -1,0 +1,3 @@
+For lost or stolen cards in {country}, please contact Visa support at the phone number listed for your country.
+
+Note: This response is only valid when the query contains an exact country name from our supported list AND mentions "lost" or "stolen" card.
