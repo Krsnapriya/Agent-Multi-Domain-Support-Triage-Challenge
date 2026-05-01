@@ -1,3 +1,0 @@
-Category '{category}' exists in the Claude documentation.
-
-Note: This response is only valid when the query matches an exact category name from our documentation index. No policy details are provided in the corpus - contact support for specific guidance.

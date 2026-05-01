@@ -1,3 +1,0 @@
-Documentation exists for '{topic}' in the HackerRank support portal.
-
-Note: This response is only valid when the query topic matches an exact link title from our documentation index. No policy details are provided in the corpus - contact support for specific guidance.
