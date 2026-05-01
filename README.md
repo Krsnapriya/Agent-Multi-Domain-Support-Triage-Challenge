@@ -263,26 +263,3 @@ Submissions are scored across four dimensions:
 
 See `evaluation_criteria.md` for the complete rubric.
 
-## 🤝 Contributing
-
-This is a hackathon submission. For learning purposes:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b improve-retrieval`)
-3. Make your changes
-4. Run the full test suite
-5. Submit a pull request
-
-## 📄 License
-
-MIT License - see LICENSE file for details.
-
-## 🙏 Acknowledgments
-
-- **HackerRank** for organizing the Orchestrate Hackathon
-- **Anthropic** for Claude model capabilities
-- **Interview Street** for the challenge framework
-
----
-
-**Built with integrity. Zero hallucinations. Production-ready.**
