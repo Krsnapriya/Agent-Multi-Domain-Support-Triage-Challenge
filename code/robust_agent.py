@@ -33,8 +33,8 @@ SUPPORT_ISSUES_DIR = REPO_ROOT / "support_tickets"
 OUTPUT_FILE = SUPPORT_ISSUES_DIR / "output.csv"
 INPUT_FILE = SUPPORT_ISSUES_DIR / "support_tickets.csv"
 
-# Confidence thresholds
-MIN_CONFIDENCE_SCORE = 2.0  # Minimum score to reply
+# Confidence thresholds - tuned for higher reply rate
+MIN_CONFIDENCE_SCORE = 1.5  # Lowered from 2.0 to increase reply rate
 HIGH_CONFIDENCE_SCORE = 5.0  # Score indicating strong match
 
 # Visa countries (extracted from corpus)
@@ -273,31 +273,49 @@ class CorpusLoader:
         return results[:top_k]
     
     def _calculate_score(self, article: Article, query_lower: str, query_words: Set[str]) -> Tuple[float, List[str]]:
-        """Calculate relevance score for an article."""
+        """Calculate relevance score for an article using hybrid BM25-like scoring."""
         title = article.title.lower()
         content = article.content.lower()
         
         score = 0.0
         matched = []
         
+        # Title matches worth significantly more (BM25-style)
+        title_len = len(title.split())
         for word in query_words:
-            # Title matches worth more
             if word in title:
-                score += 3.0
+                # BM25-like scoring: term frequency normalized by document length
+                tf = title.count(word) / max(title_len, 1)
+                score += 3.0 + (tf * 2.0)
                 matched.append(word)
-            
-            # Content matches
+        
+        # Content matches with diminishing returns
+        content_len = len(content.split())
+        for word in query_words:
             count = content.count(word)
             if count > 0:
-                score += min(count * 0.3, 2.0)
+                # BM25-like: log(1 + tf) to prevent spam
+                import math
+                tf_score = math.log(1 + count) / max(math.sqrt(content_len / 100), 1)
+                score += min(tf_score * 1.5, 2.5)
                 if word not in matched:
                     matched.append(word)
         
-        # Phrase match boost
+        # Phrase match boost (exact phrase in title or content)
         if query_lower in title:
-            score += 5.0
+            score += 8.0  # Strong boost for exact title match
         if query_lower in content:
-            score += 2.0
+            score += 4.0
+        
+        # Proximity boost: check if multiple query words appear close together
+        words_list = list(query_words)
+        if len(words_list) >= 2:
+            for i in range(len(words_list) - 1):
+                phrase = f"{words_list[i]} {words_list[i+1]}"
+                if phrase in title:
+                    score += 3.0
+                if phrase in content:
+                    score += 1.5
         
         return score, matched
     
