@@ -29,9 +29,9 @@ from dataclasses import dataclass, field
 CODE_DIR = Path(__file__).parent
 REPO_ROOT = CODE_DIR.parent
 DATA_DIR = REPO_ROOT / "data"
-SUPPORT_ISSUES_DIR = REPO_ROOT / "support_tickets"
+SUPPORT_ISSUES_DIR = REPO_ROOT / "support_issues"
 OUTPUT_FILE = SUPPORT_ISSUES_DIR / "output.csv"
-INPUT_FILE = SUPPORT_ISSUES_DIR / "support_tickets.csv"
+INPUT_FILE = SUPPORT_ISSUES_DIR / "support_issues.csv"
 
 # Confidence thresholds - tuned for higher reply rate
 MIN_CONFIDENCE_SCORE = 1.5  # Lowered from 2.0 to increase reply rate

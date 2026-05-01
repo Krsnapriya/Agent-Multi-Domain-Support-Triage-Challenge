@@ -15,14 +15,14 @@ from pathlib import Path
 code_dir = Path(__file__).parent
 sys.path.insert(0, str(code_dir))
 
-from triage_agent import SupportTriageAgent
+from robust_agent import RobustTriageAgent
 
 
 def main():
     # Resolve paths relative to repo root (one level up from code/)
     repo_root = code_dir.parent
-    input_csv = repo_root / "support_tickets" / "support_tickets.csv"
-    output_csv = repo_root / "support_tickets" / "output.csv"
+    input_csv = repo_root / "support_issues" / "support_issues.csv"
+    output_csv = repo_root / "support_issues" / "output.csv"
     data_dir = repo_root / "data"
 
     # Validate paths
@@ -45,8 +45,8 @@ def main():
 
     # Initialize agent (loads and indexes corpus)
     print("\n[1/3] Loading and indexing corpus...")
-    agent = SupportTriageAgent()
-    print(f"      Done. Loaded {agent.corpus_reader.get_article_count()} articles")
+    agent = RobustTriageAgent()
+    print(f"      Done. Loaded {agent.corpus.total_articles} articles")
 
     # Process tickets
     print(f"\n[2/3] Triaging tickets...\n")

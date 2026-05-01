@@ -28,6 +28,7 @@ A terminal-based AI agent that triages real support tickets across three product
 ├── evaluation_criteria.md          # Scoring rubric
 ├── AGENTS.md                       # AI coding tool rules + transcript logging
 ├── code/                           # ← Agent implementation
+│   ├── main.py                     # Entry point
 │   ├── robust_agent.py             # Production-ready triage agent (758 lines)
 │   ├── README.md                   # Code-level documentation
 │   └── requirements.txt            # Dependencies (stdlib only!)
@@ -35,9 +36,9 @@ A terminal-based AI agent that triages real support tickets across three product
 │   ├── hackerrank/                 # 436 articles
 │   ├── claude/                     # 321 articles
 │   └── visa/                       # 14 files (country lists + procedures)
-└── support_tickets/
-    ├── sample_support_tickets.csv  # Development samples
-    ├── support_tickets.csv         # Input tickets for processing
+└── support_issues/
+    ├── sample_support_issues.csv   # Development samples
+    ├── support_issues.csv          # Input tickets for processing
     └── output.csv                  # Generated predictions
 ```
 
