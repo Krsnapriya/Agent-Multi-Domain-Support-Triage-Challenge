@@ -480,7 +480,7 @@ class RobustTriageAgent:
         elif company == "Claude":
             return self._build_claude_response(issue)
 
-        return None, "Unable to identify company"
+        return "Escalate to a human", "Unable to identify company"
 
     def _build_visa_response(self, issue: str) -> Tuple[Optional[str], str]:
         """Build Visa response."""
@@ -494,7 +494,7 @@ class RobustTriageAgent:
                 if citicorp_match:
                     phone = citicorp_match.group(1)
                     response = (
-                        f"Hi, for lost or stolen Visa traveler's cheques, please contact Citicorp at {phone}. "
+                        f"For lost or stolen Visa traveler's cheques, please contact Citicorp at {phone}. "
                         f"Citicorp provides automated cheque verification 24/7. Refunds can typically be "
                         f"arranged within 24 hours subject to terms and conditions. Have your cheque serial "
                         f"numbers, purchase location, and issuer details ready when you call."
@@ -508,7 +508,7 @@ class RobustTriageAgent:
                 phone = self.corpus.get_visa_phone(country)
                 if phone:
                     response = (
-                        f"Hi, for your lost or stolen Visa card in {country}, please call: {phone}. "
+                        f"For your lost or stolen Visa card in {country}, please call: {phone}. "
                         f"This number is available 24/7 for lost and stolen card reporting. "
                         f"Have your card details ready when you call."
                     )[:MAX_RESPONSE_CHARS]
@@ -519,31 +519,31 @@ class RobustTriageAgent:
             for file_info in self.corpus.visa_content["files"]:
                 if "travel" in file_info["name"].lower() or "exchange" in file_info["name"].lower():
                     response = (
-                        f"Hi, Visa provides travel support services including currency exchange information. "
+                        f"Visa provides travel support services including currency exchange information. "
                         f"Please visit the Visa website or contact your card issuer for specific travel-related assistance. "
                         f"Source: {file_info['name']}"
                     )[:MAX_RESPONSE_CHARS]
                     return response, "Corpus contains travel support documentation"
 
-        return None, "No specific Visa procedures found for this issue"
+        return "Escalate to a human", "No specific Visa procedures found for this issue"
 
     def _build_hackerrank_response(self, issue: str) -> Tuple[Optional[str], str]:
         """Build HackerRank response."""
         results = self.corpus.search(issue, "hackerrank")
 
         if not results:
-            return None, "No relevant HackerRank documentation found"
+            return "Escalate to a human", "No relevant HackerRank documentation found"
 
         best = results[0]
 
         if best.score < MIN_CONFIDENCE_SCORE:
-            return None, "Low confidence match in HackerRank documentation"
+            return "Escalate to a human", "Low confidence match in HackerRank documentation"
 
         excerpt = self._extract_excerpt(best.article.content, issue, max_sentences=4)
 
         # Format as plain text, friendly tone (matching sample style)
         response = (
-            f"Hi, {excerpt}\n\n"
+            f"Hi,\n\n{excerpt}\n\n"
             f"If you need more details, please check: {best.article.source_url or best.article.title}"
         )[:MAX_RESPONSE_CHARS]
 
@@ -554,18 +554,18 @@ class RobustTriageAgent:
         results = self.corpus.search(issue, "claude")
 
         if not results:
-            return None, "No relevant Claude documentation found"
+            return "Escalate to a human", "No relevant Claude documentation found"
 
         best = results[0]
 
         if best.score < MIN_CONFIDENCE_SCORE:
-            return None, "Low confidence match in Claude documentation"
+            return "Escalate to a human", "Low confidence match in Claude documentation"
 
         excerpt = self._extract_excerpt(best.article.content, issue, max_sentences=4)
 
         # Format as plain text, friendly tone (matching sample style)
         response = (
-            f"Hi, {excerpt}\n\n"
+            f"Hi,\n\n{excerpt}\n\n"
             f"For more information, see: {best.article.source_url or best.article.title}"
         )[:MAX_RESPONSE_CHARS]
 
