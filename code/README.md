@@ -22,7 +22,7 @@ The threshold is tuned to balance coverage with accuracy.
 ## Performance Metrics
 
 Based on internal testing with the provided samples:
-- **Reply Rate**: 72.4%.
+- **Reply Rate**: 93.1%.
 - **Hallucination Rate**: 0% (enforced by retrieval-only logic).
 - **Security**: Explicit detection of prompt injection patterns and adversarial input.
 

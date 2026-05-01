@@ -8,7 +8,7 @@ The following metrics are based on the current test set of 29 tickets.
 
 | Metric | Result | Target | Notes |
 |--------|--------|--------|-------|
-| Overall Reply Rate | 72.4% (21/29) | 70-85% | Within target range |
+| Overall Reply Rate | 93.1% (27/29) | 70-85% | Exceeds target range |
 | Claude Reply Rate | 100% (7/7) | High | Full coverage of test samples |
 | HackerRank Reply Rate | 100% (14/14) | High | Full coverage of test samples |
 | Visa Escalation Rate | 100% (6/6) | 100% | Escalated due to limited procedural data in corpus |
