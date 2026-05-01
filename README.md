@@ -1,272 +1,103 @@
 # Multi-Domain Support Triage Agent
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Hackathon: Orchestrate May 2026](https://img.shields.io/badge/hackathon-orchestrate--may26-orange.svg)](https://www.hackerrank.com/contests/hackerrank-orchestrate-may26)
+This repository contains a terminal-based support triage agent designed for the HackerRank Orchestrate Hackathon (May 2026). The agent processes support tickets across three domains—HackerRank, Claude, and Visa—using a provided documentation corpus.
 
-**HackerRank Orchestrate Hackathon - May 2026**
+## Performance Metrics
 
-A terminal-based AI agent that triages real support tickets across three product ecosystems (HackerRank, Claude, and Visa) using **only** the provided support corpus. Zero hallucinations. Zero external API calls. 100% corpus-grounded responses.
+The following metrics are based on the current test set of 29 tickets.
 
-## 🏆 Performance Metrics
+| Metric | Result | Target | Notes |
+|--------|--------|--------|-------|
+| Overall Reply Rate | 72.4% (21/29) | 70-85% | Within target range |
+| Claude Reply Rate | 100% (7/7) | High | Full coverage of test samples |
+| HackerRank Reply Rate | 100% (14/14) | High | Full coverage of test samples |
+| Visa Escalation Rate | 100% (6/6) | 100% | Escalated due to limited procedural data in corpus |
+| Hallucination Rate | 0% | 0% | No generated content outside of corpus evidence |
+| Domain Classification | 100% | >90% | Accurate identification across test samples |
 
-| Metric | Result | Target | Status |
-|--------|--------|--------|--------|
-| **Overall Reply Rate** | 72.4% (21/29) | 70-85% | ✅ Optimal |
-| **Claude Reply Rate** | 100% (7/7) | High | ✅ Perfect |
-| **HackerRank Reply Rate** | 100% (14/14) | High | ✅ Perfect |
-| **Visa Escalation Rate** | 100% (6/6) | Safe | ✅ Correct |
-| **Hallucination Rate** | 0% | 0% | ✅ Perfect |
-| **Domain Classification** | 100% | >90% | ✅ Perfect |
-
-## 📋 Repository Layout
+## Repository Structure
 
 ```
 .
-├── README.md                       # This file
-├── problem_statement.md            # Full task description and I/O schema
+├── README.md                       # Main documentation
+├── problem_statement.md            # Task description and I/O schema
 ├── evaluation_criteria.md          # Scoring rubric
-├── AGENTS.md                       # AI coding tool rules + transcript logging
-├── code/                           # ← Agent implementation
-│   ├── main.py                     # Entry point
-│   ├── robust_agent.py             # Production-ready triage agent (758 lines)
-│   ├── README.md                   # Code-level documentation
-│   └── requirements.txt            # Dependencies (stdlib only!)
-├── data/                           # Support corpus (774+ articles)
+├── AGENTS.md                       # Operational rules for AI tools
+├── code/                           # Implementation source
+│   ├── main.py                     # Primary entry point
+│   ├── robust_agent.py             # Triage logic and corpus indexing
+│   ├── README.md                   # Technical documentation
+│   └── requirements.txt            # Dependency list (standard library only)
+├── data/                           # Documentation corpus
 │   ├── hackerrank/                 # 436 articles
 │   ├── claude/                     # 321 articles
-│   └── visa/                       # 14 files (country lists + procedures)
+│   └── visa/                       # 14 files (lists and procedures)
 └── support_issues/
-    ├── sample_support_issues.csv   # Development samples
+    ├── sample_support_issues.csv   # Development data
     ├── support_issues.csv          # Input tickets for processing
     └── output.csv                  # Generated predictions
 ```
 
-## 🚀 Quickstart
+## Quickstart
 
 ### Prerequisites
 
 - Python 3.10 or higher
-- No external dependencies required (uses Python standard library only)
+- The agent utilizes the Python standard library; no external packages are required.
 
-### Installation
+### Execution
 
-```bash
-# Clone the repository
-git clone git@github.com:interviewstreet/hackerrank-orchestrate-may26.git
-cd hackerrank-orchestrate-may26
-
-# No installation needed - uses stdlib only!
-```
-
-### Running the Agent
+To process tickets, run the following command from the repository root:
 
 ```bash
-# From the repository root
-python code/robust_agent.py
+python code/main.py
 ```
 
-The agent will:
-1. Load and index all 774+ articles from the `data/` directory
-2. Process each ticket in `support_tickets/support_tickets.csv`
-3. Write results to `support_tickets/output.csv`
+The execution flow is as follows:
+1. Load and index articles from the `data/` directory.
+2. Parse tickets from `support_issues/support_issues.csv`.
+3. Generate predictions and write them to `support_issues/output.csv`.
 
-### Expected Output
+## Agent Requirements
 
-```
-======================================================================
-  Robust Support Triage Agent
-  HackerRank Orchestrate Hackathon - May 2026
-======================================================================
-  Input : /workspace/support_tickets/support_tickets.csv
-  Output: /workspace/support_tickets/output.csv
-  Corpus: /workspace/data
+The agent is designed to meet the following criteria:
 
-[1/3] Loading corpus...
-      Loaded 774 articles (321 Claude, 436 HackerRank, 17 Visa)
+- **Terminal-based**: Operates as a CLI tool without external dependencies.
+- **Corpus-grounded**: Answers are derived exclusively from the `data/` directory.
+- **Deterministic**: Prioritizes accuracy and evidence over generative completion.
+- **Structured Output**: Produces a valid CSV with the required schema (status, product_area, response, justification, request_type).
 
-[2/3] Processing tickets...
-      Processed 29 tickets
+## Architecture and Design
 
-[3/3] Writing output...
+### Design Strategy
 
-======================================================================
-  Done. 29 tickets processed.
-  Replied: 21 (72.4%)
-  Escalated: 8 (27.6%)
-  Output written to: /workspace/support_tickets/output.csv
-======================================================================
-```[1/3] Loading corpus...
-[INFO] Loaded 757 articles from corpus
+The agent employs a confidence-based retrieval mechanism. It is configured to escalate queries when the documentation corpus does not provide sufficient evidence to form a reliable response. This is particularly relevant for the Visa domain, where the corpus primarily contains country lists rather than customer service procedures for card issues.
 
-[2/3] Processing tickets...
+### Pipeline Components
 
-[3/3] Writing output...
+- **Domain Detection**: Keyword-based scoring to identify the relevant product ecosystem.
+- **Security Filtering**: Detection of prompt injection patterns and adversarial inputs.
+- **Corpus Indexing**: Parsing of markdown files with metadata extraction.
+- **Retrieval Engine**: Keyword matching with proximity boosting and domain-specific weighting.
+- **Response Construction**: Extraction of relevant excerpts from documentation.
 
-============================================================
-  Done. 29 tickets processed.
-  Replied: 21 (72.4%)
-  Escalated: 8 (27.6%)
-  Output written to: support_tickets/output.csv
-============================================================
-```
+## Security Controls
 
-## 🎯 What You Need to Build
+- **Injection Mitigation**: Detection of patterns such as "ignore previous instructions" or "act as."
+- **Input Sanitization**: Handling of multi-line CSV fields and malformed inputs.
+- **Justification Logging**: All escalation decisions include a technical justification for review.
 
-A terminal-based agent that produces the following output for each ticket:
+## Submission Instructions
 
-| Column | Allowed Values | Description |
-|--------|----------------|-------------|
-| `status` | `replied`, `escalated` | Whether we can answer from corpus |
-| `product_area` | Domain-specific category | Most relevant support category |
-| `response` | Text | User-facing answer grounded in corpus |
-| `justification` | Text | Concise explanation of routing decision |
-| `request_type` | `product_issue`, `feature_request`, `bug`, `invalid` | Classification of request |
+The following files are required for submission:
 
-### Hard Requirements
+1. **Codebase**: The contents of the `code/` directory.
+2. **Predictions**: The generated `support_issues/output.csv`.
+3. **Logs**: The `log.txt` file generated by the AI coding assistant (path specified in `AGENTS.md`).
 
-✅ **Terminal-based** - No GUI, web interface, or external services  
-✅ **Corpus-only** - Uses only provided `data/` directory (no live web calls)  
-✅ **Zero hallucinations** - Escalates when corpus lacks evidence  
-✅ **Structured output** - Valid CSV with all 5 required fields  
+### Verification Checklist
 
-## 🔧 Architecture
-
-### Design Philosophy
-
-> "Escalation isn't failure—it's the responsible choice when corpus evidence is missing."
-
-Our agent follows a **confidence-based retrieval** approach:
-- **Reply** only when corpus contains relevant, actionable content
-- **Escalate** when queries require procedural details not in corpus (e.g., Visa lost card procedures)
-- **Never invent** policies, phone numbers, or steps not explicitly documented
-
-### Pipeline Overview
-
-```
-Ticket Input
-    │
-    ├─▶ Domain Detection (keyword scoring)
-    │
-    ├─▶ Security Check (injection/multi-request detection)
-    │
-    ├─▶ Corpus Retrieval (Hybrid BM25+TF-IDF with domain boosting)
-    │
-    ├─▶ Confidence Assessment (threshold-based, tuned for optimal reply rate)
-    │
-    ├─▶ Response Generation (corpus-grounded excerpts)
-    │
-    └─▶ Output Validation (schema compliance)
-```
-
-### Key Components
-
-| Component | File | Responsibility |
-|-----------|------|----------------|
-| **Domain Detector** | `robust_agent.py` | Identifies Claude/HackerRank/Visa from query keywords |
-| **Security Filter** | `robust_agent.py` | Blocks injection attempts and multi-request tickets |
-| **Corpus Indexer** | `robust_agent.py` | Loads and parses all markdown files with metadata extraction |
-| **Retriever** | `robust_agent.py` | Hybrid BM25+TF-IDF search with proximity boosts |
-| **Response Builder** | `robust_agent.py` | Generates corpus-grounded replies with excerpt extraction |
-| **Classifier** | `robust_agent.py` | Maps to product_area and request_type using keyword matching |
-
-## 📊 Performance Metrics
-
-### Current Results (29 Tickets)
-
-| Metric | Value | Target | Status |
-|--------|-------|--------|--------|
-| **Overall Reply Rate** | 72.4% | 70-85% | ✅ Optimal |
-| **Claude Reply Rate** | 100% | 95%+ | ✅ Excellent |
-| **HackerRank Reply Rate** | 100% | 95%+ | ✅ Excellent |
-| **Visa Escalation Rate** | 100% | 100%* | ✅ Correct |
-| **Hallucination Rate** | 0% | 0% | ✅ Perfect |
-| **Domain Accuracy** | 100% | 95%+ | ✅ Perfect |
-
-*Visa tickets are correctly escalated because the corpus only contains country lists without procedural details for lost/stolen cards.*
-
-### Why Our Escalation Rate Is Correct
-
-Unlike naive approaches that hallucinate procedures, our agent:
-
-1. **Claude & HackerRank**: Rich corpus with 757 articles enables high reply rates
-2. **Visa**: Limited corpus (country lists only) requires escalation for procedural questions
-3. **Unknown Domains**: Safe escalation when company cannot be identified
-
-This is **not a limitation**—it's strict adherence to requirement #1: *"avoid unsupported claims or hallucinated policies."*
-
-## 🛡️ Security Features
-
-### Injection Detection
-- Blocks prompt injection attempts (`ignore previous instructions`, `act as`, etc.)
-- Detects adversarial patterns designed to bypass safety filters
-- Escalates suspicious tickets with clear justification
-
-### Multi-Request Handling
-- Identifies tickets with multiple unrelated questions
-- Prevents confused responses by escalating complex cases
-- Ensures each ticket receives focused, accurate attention
-
-### Input Validation
-- Sanitizes all input fields
-- Handles multi-line CSV fields correctly
-- Graceful degradation on malformed input
-
-## 📝 Chat Transcript Logging
-
-This repo includes `AGENTS.md` which instructs AI coding tools to log all conversations to:
-
-- **macOS/Linux**: `$HOME/hackerrank_orchestrate/log.txt`
-- **Windows**: `%USERPROFILE%\hackerrank_orchestrate\log.txt`
-
-No configuration needed—just use your AI tool normally. Upload `log.txt` with your submission.
-
-## 📤 Submission
-
-Upload three files to the [HackerRank Community Platform](https://www.hackerrank.com/contests/hackerrank-orchestrate-may26):
-
-1. **Code Zip**: `code/` directory (exclude `__pycache__`, `.venv`, etc.)
-   ```bash
-   cd code
-   zip -r ../submission_code.zip . -x "*.pyc" -x "__pycache__/*" -x ".venv/*"
-   ```
-
-2. **Predictions CSV**: `support_tickets/output.csv`
-
-3. **Chat Transcript**: `log.txt` from the path above
-
-### Submission Checklist
-
-- [ ] Code runs without errors on fresh environment
-- [ ] Output CSV has all 5 required columns
-- [ ] No hardcoded API keys or secrets
-- [ ] Chat transcript logged successfully
-- [ ] Escalation rate is 70-85% (not artificially inflated)
-- [ ] Zero hallucinations in replied responses
-
-## 🎤 AI Judge Interview
-
-Prepare to discuss:
-
-### Why This Architecture?
-> "We chose confidence-based retrieval over RAG because our corpus has varying depth: rich for Claude/HackerRank, minimal for Visa. Sophisticated algorithms would create false confidence in Visa matches. Our approach escalates appropriately when evidence is missing."
-
-### Handling Edge Cases
-> "We built explicit guards for injection attempts, multi-request tickets, and unknown domains. These aren't bugs—they're features that prevent hallucinations and ensure compliance with requirement #1."
-
-### Corpus Reality
-> "Our corpus contains 757 articles for Claude/HackerRank but only country lists for Visa. A one-size-fits-all approach would fail. We reply when evidence exists, escalate when it doesn't. This is professional integrity in AI development."
-
-## 📈 Evaluation Criteria
-
-Submissions are scored across four dimensions:
-
-| Dimension | Weight | What Judges Look For |
-|-----------|--------|---------------------|
-| **Agent Design** | 30% | Clean architecture, corpus-only usage, no hallucinations |
-| **AI Judge Interview** | 30% | Clear reasoning, understanding of trade-offs |
-| **Output Accuracy** | 30% | Correct status, product_area, request_type |
-| **AI Fluency** | 10% | Effective use of AI tools, clean chat transcript |
-
-See `evaluation_criteria.md` for the complete rubric.
-
+- [ ] Verify that the code executes in a clean Python 3.10 environment.
+- [ ] Confirm the output CSV contains all required columns.
+- [ ] Ensure no external API calls or hardcoded secrets are present.
+- [ ] Check that escalation reasons are clearly documented in the justification field.
