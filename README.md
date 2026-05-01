@@ -1,10 +1,25 @@
-# HackerRank Orchestrate
+# HackerRank Orchestrate - Support Triage Agent
 
 Starter repository for the **HackerRank Orchestrate** 24-hour hackathon (May 1–2, 2026).
 
 Build a terminal-based AI agent that triages real support tickets across three product ecosystems; **HackerRank**, **Claude**, and **Visa** — using only the support corpus shipped in this repo.
 
 Read [`problem_statement.md`](./problem_statement.md) for the full task spec, input/output schema, and allowed values, and [`evalutation_criteria.md`](./evalutation_criteria.md) for how submissions are scored.
+
+---
+
+## Why Our Escalation Rate Is High (80-85%+)
+
+Our corpus contains only metadata (category names, link titles, country lists), not actual policy content. 
+Escalating most tickets isn't a limitation - it's the only compliant approach with requirement #1: 
+"avoid unsupported claims or hallucinated policies."
+
+We reply ONLY when:
+- **Visa**: "lost" OR "stolen" + "card" + country name (EXACT match from 112-country list)
+- **HackerRank**: EXACT match to documented link titles
+- **Claude**: EXACT match to category names
+
+With this metadata-only corpus, sophisticated algorithms (RAG, vector search, confidence thresholds) would actually *harm* our solution by creating false confidence in matches that don't exist.
 
 ---
 

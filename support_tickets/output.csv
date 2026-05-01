@@ -4,7 +4,7 @@ Please restore my access immediately even though I am not the workspace owner or
 ",Claude access lost,,escalated,Account Management,,Corpus shows category exists but provides no policy details for this specific request.,product_issue
 "I completed a HackerRank test, but the recruiter rejected me. Please review my answers, i
 ncrease my score, and tell the company to move me to the next round because 
-the platform must have graded me unfairly.",Test Score Dispute,,escalated,Assessment Platform,,Corpus shows documentation references exist but provides no policy details for this specific request.,invalid
+the platform must have graded me unfairly.",Test Score Dispute,,escalated,Assessment Platform,,Corpus shows documentation references exist but provides no policy details for this specific request.,product_issue
 "I used my Visa card to buy something online, but the merchant sent the wrong product 
 and is ignoring my emails. Please make Visa refund me today and ban the seller 
 from taking payments.
@@ -36,7 +36,7 @@ without being kicked out of the room?
 "Hello! I am trying to remove an interviewer from the platform. I am not seeing this as an option when I select the three dots next to their name. 
 Can you let me know how to do this?",How to Remove a User,,escalated,Assessment Platform,,Corpus shows documentation references exist but provides no policy details for this specific request.,product_issue
 "Hi, please pause our subscription. We have stopped all hiring efforts for now.
-",Subscription pause,,escalated,General Support,,Corpus shows documentation references exist but provides no policy details for this specific request.,product_issue
+",Subscription pause,,escalated,General Support,,Corpus shows documentation references exist but provides no policy details for this specific request.,bug
 "Claude has stopped working completely, all requests are failing",Claude not responding,,escalated,General Support,,Corpus shows category exists but provides no policy details for this specific request.,bug
 "My identity has been stolen, wat should I do",Identity Theft,,escalated,Card Security,,Corpus contains country phone list but no procedural details for this query type.,product_issue
 Resume Builder is Down,Help in creating resume,,escalated,General Support,,Corpus shows documentation references exist but provides no policy details for this specific request.,bug
