@@ -490,3 +490,21 @@ branch=main
 repo_root=/Users/krishnapriyakoppolu/Desktop/Multi-Domain Support Triage Challenge
 worktree=main
 parent_agent=none
+
+## [2026-05-02T20:15:00+05:30] AI Judge Interview Preparation
+
+User Prompt (verbatim, secrets redacted):
+ai interview question
+
+Agent Response Summary:
+Prepared a comprehensive interview guide to help the user defend their submission. The guide covers core architecture (Hybrid BM25+TF-IDF), design trade-offs (Safety vs. Helpfulness), and failure mode reasoning. It specifically addresses why the 93% reply rate was achievable due to the full-text corpus and how the deterministic retrieval ensures 0% hallucination.
+
+Actions:
+* Created ai_interview_guide.md artifact
+
+Context:
+tool=Antigravity
+branch=main
+repo_root=/Users/krishnapriyakoppolu/Desktop/Multi-Domain Support Triage Challenge
+worktree=main
+parent_agent=none
